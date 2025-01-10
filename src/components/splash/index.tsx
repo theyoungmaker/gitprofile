@@ -7,7 +7,7 @@ const AnimatedSplash = () => {
   return (
     <div className="logo_wrapper" style={{ backgroundColor: 'black' }}>
       <div className="screen">
-        <LogoLoader id="logo" />
+        <LogoLoader />
       </div>
     </div>
   );
