@@ -28,6 +28,12 @@ export const getSanitizedConfig = (
 ): SanitizedConfig | Record<string, never> => {
   try {
     return {
+      scratch: {
+        username: config.scratch.username,
+        limit: config.scratch.limit,
+        sortBy: config.scratch.sortBy,
+        corsProxy: config.scratch.corsProxy,
+      },
       github: {
         username: config.github.username,
       },

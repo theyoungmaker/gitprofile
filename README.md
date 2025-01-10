@@ -38,7 +38,7 @@
   <a href="#arifszn"><img src="https://github.com/arifszn/gitprofile/assets/45073703/4d2ccd45-e566-4743-bf61-cadc03ece54c" width="50%" alt="Shadow"/></a>
 </p>
 
-**GitProfile** is a powerful portfolio builder that allows you to create a stunning and personalized portfolio site in minutes, even if you have no coding experience. Simply provide your GitHub username, and GitProfile will automatically generate a portfolio. Best of all, you can easily deploy your portfolio to GitHub Pages with just a few clicks, making it accessible to the world in no time.
+**GitProfile** is an easy to use portfolio builder where you can create a portfolio page automatically by just providing your GitHub username. The project was originally built by [Arif](https://arifszn.github.io/gitprofile) and it is modified for use as a template for students of [The Young Maker](https://theyoungmaker.com/) to include Scratch projects as well. It is built using React.js on top of Vite. But it's not necessary to have knowledge on these to get you started. You can make your own copy with zero coding experience.
 
 **Features:**
 

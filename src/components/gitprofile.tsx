@@ -30,6 +30,7 @@ import ExternalProjectCard from './external-project-card';
 import BlogCard from './blog-card';
 import Footer from './footer';
 import PublicationCard from './publication-card';
+import ScratchProject from './scratch-project';
 
 /**
  * Renders the GitProfile component.
@@ -46,6 +47,53 @@ const GitProfile = ({ config }: { config: Config }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [githubProjects, setGithubProjects] = useState<GithubProject[]>([]);
+  const [scratchProjects, setScratchProjects] = useState(null);
+
+  const getScratchProjects = useCallback(async () => {
+    const username = sanitizedConfig.scratch.username;
+    if (username === '') {
+      return [];
+    }
+    const url = `${sanitizedConfig.scratch.corsProxy}api/scratch?username=${sanitizedConfig.scratch.username}`;
+
+    const response = await axios.get(url);
+    const scratchData = response.data;
+
+    if (
+      response.data.length > 0 &&
+      response.data.response != 'Too many requests'
+    ) {
+      const sortedProjectsLimit = response.data
+        .sort((a, b) => {
+          // Parse the history.modified timestamps as Date objects
+          if (sanitizedConfig.scratch.sortBy === 'views') {
+            // Sort in descending order (highest views first)
+            return b.stats.views - a.stats.views;
+          } else if (sanitizedConfig.scratch.sortBy === 'remixes') {
+            // Sort in descending order (highest remixes first)
+            return b.stats.remixes - a.stats.remixes;
+          } else {
+            const dateA = new Date(a.history.modified);
+            const dateB = new Date(b.history.modified);
+
+            // Sort in ascending order
+            return dateA - dateB;
+
+            // Sort in descending order (most recent first)
+            // return dateB - dateA;
+          }
+        })
+        .slice(0, sanitizedConfig.scratch.limit);
+      return sortedProjectsLimit;
+    }
+
+    return scratchData;
+  }, [
+    sanitizedConfig.scratch.username,
+    sanitizedConfig.scratch.limit,
+    sanitizedConfig.scratch.corsProxy,
+    sanitizedConfig.scratch.sortBy,
+  ]);
 
   const getGithubProjects = useCallback(
     async (publicRepoCount: number): Promise<GithubProject[]> => {
@@ -119,6 +167,7 @@ const GitProfile = ({ config }: { config: Config }) => {
       }
 
       setGithubProjects(await getGithubProjects(data.public_repos));
+      setScratchProjects(await getScratchProjects());
     } catch (error) {
       handleError(error as AxiosError | Error);
     } finally {
@@ -126,8 +175,10 @@ const GitProfile = ({ config }: { config: Config }) => {
     }
   }, [
     sanitizedConfig.github.username,
+    sanitizedConfig.scratch.username,
     sanitizedConfig.projects.github.display,
     getGithubProjects,
+    setScratchProjects,
   ]);
 
   useEffect(() => {
@@ -254,6 +305,13 @@ const GitProfile = ({ config }: { config: Config }) => {
                         loading={loading}
                         username={sanitizedConfig.github.username}
                         googleAnalyticsId={sanitizedConfig.googleAnalytics.id}
+                      />
+                    )}
+                    {sanitizedConfig.scratch.username && (
+                      <ScratchProject
+                        scratchProjects={scratchProjects}
+                        loading={loading}
+                        scratchConfig={sanitizedConfig.scratch}
                       />
                     )}
                     {sanitizedConfig.publications.length !== 0 && (

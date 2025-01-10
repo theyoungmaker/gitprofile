@@ -2,6 +2,13 @@ export interface SanitizedGithub {
   username: string;
 }
 
+export interface SanitizedScratch {
+  username: string;
+  limit: number;
+  sortBy: string;
+  corsProxy: string;
+}
+
 export interface SanitizedGitHubProjects {
   display: boolean;
   header: string;
@@ -136,6 +143,7 @@ export interface SanitizedThemeConfig {
 }
 
 export interface SanitizedConfig {
+  scratch: SanitizedScratch;
   github: SanitizedGithub;
   projects: SanitizedProjects;
   seo: SanitizedSEO;
