@@ -5,6 +5,28 @@ interface Github {
   username: string;
 }
 
+interface Scratch {
+  /**
+   * Scratch username
+   */
+  username: string;
+
+  /**
+   * Limit of Scratch Project being shown
+   */
+  limit: number;
+
+  /**
+   * parameter for projects to be sorted by
+   */
+  sortBy: 'date' | 'views' | 'remixes';
+
+  /**
+   * corsProxy for external API to bypass CORS policy
+   */
+  corsProxy: string;
+}
+
 interface GitHubProjects {
   /**
    * Display GitHub projects?
@@ -354,6 +376,7 @@ interface ThemeConfig {
 }
 
 interface Config {
+  scratch: Scratch;
   /**
    * GitHub config
    */

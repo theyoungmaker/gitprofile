@@ -1,6 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import { formatDistance } from 'date-fns';
+import { useCallback, useEffect, useState } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
+import '../assets/index.css';
+import { BG_COLOR } from '../constants';
+import { DEFAULT_THEMES } from '../constants/default-themes';
 import {
   CustomError,
   GENERIC_ERROR,
@@ -8,29 +12,26 @@ import {
   INVALID_GITHUB_USERNAME_ERROR,
   setTooManyRequestError,
 } from '../constants/errors';
-import { HelmetProvider } from 'react-helmet-async';
-import '../assets/index.css';
-import { getInitialTheme, getSanitizedConfig, setupHotjar } from '../utils';
-import { SanitizedConfig } from '../interfaces/sanitized-config';
-import ErrorPage from './error-page';
-import HeadTagEditor from './head-tag-editor';
-import { DEFAULT_THEMES } from '../constants/default-themes';
-import ThemeChanger from './theme-changer';
-import { BG_COLOR } from '../constants';
-import AvatarCard from './avatar-card';
-import { Profile } from '../interfaces/profile';
-import DetailsCard from './details-card';
-import SkillCard from './skill-card';
-import ExperienceCard from './experience-card';
-import EducationCard from './education-card';
-import CertificationCard from './certification-card';
 import { GithubProject } from '../interfaces/github-project';
-import GithubProjectCard from './github-project-card';
-import ExternalProjectCard from './external-project-card';
+import { Profile } from '../interfaces/profile';
+import { SanitizedConfig } from '../interfaces/sanitized-config';
+import ScratchProjectInterface from '../interfaces/scratch-project';
+import { getInitialTheme, getSanitizedConfig, setupHotjar } from '../utils';
+import AvatarCard from './avatar-card';
 import BlogCard from './blog-card';
+import CertificationCard from './certification-card';
+import DetailsCard from './details-card';
+import EducationCard from './education-card';
+import ErrorPage from './error-page';
+import ExperienceCard from './experience-card';
+import ExternalProjectCard from './external-project-card';
 import Footer from './footer';
+import GithubProjectCard from './github-project-card';
+import HeadTagEditor from './head-tag-editor';
 import PublicationCard from './publication-card';
 import ScratchProject from './scratch-project';
+import SkillCard from './skill-card';
+import ThemeChanger from './theme-changer';
 
 /**
  * Renders the GitProfile component.
@@ -47,9 +48,13 @@ const GitProfile = ({ config }: { config: Config }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [githubProjects, setGithubProjects] = useState<GithubProject[]>([]);
-  const [scratchProjects, setScratchProjects] = useState(null);
+  const [scratchProjects, setScratchProjects] = useState<
+    ScratchProjectInterface[]
+  >([]);
 
-  const getScratchProjects = useCallback(async () => {
+  const getScratchProjects = useCallback(async (): Promise<
+    ScratchProjectInterface[]
+  > => {
     const username = sanitizedConfig.scratch.username;
     if (username === '') {
       return [];
@@ -64,7 +69,7 @@ const GitProfile = ({ config }: { config: Config }) => {
       response.data.response != 'Too many requests'
     ) {
       const sortedProjectsLimit = response.data
-        .sort((a, b) => {
+        .sort((a: ScratchProjectInterface, b: ScratchProjectInterface) => {
           // Parse the history.modified timestamps as Date objects
           if (sanitizedConfig.scratch.sortBy === 'views') {
             // Sort in descending order (highest views first)
@@ -77,7 +82,7 @@ const GitProfile = ({ config }: { config: Config }) => {
             const dateB = new Date(b.history.modified);
 
             // Sort in ascending order
-            return dateA - dateB;
+            return dateA.getTime() - dateB.getTime();
 
             // Sort in descending order (most recent first)
             // return dateB - dateA;
@@ -175,10 +180,10 @@ const GitProfile = ({ config }: { config: Config }) => {
     }
   }, [
     sanitizedConfig.github.username,
-    sanitizedConfig.scratch.username,
     sanitizedConfig.projects.github.display,
     getGithubProjects,
     setScratchProjects,
+    getScratchProjects,
   ]);
 
   useEffect(() => {

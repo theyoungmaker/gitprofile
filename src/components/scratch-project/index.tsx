@@ -1,12 +1,14 @@
 import { Fragment } from 'react';
 import { skeleton } from '../../utils';
 import LazyImage from '../lazy-image';
+import ScratchProjectInterface from '../../interfaces/scratch-project';
+import { SanitizedScratch } from '../../interfaces/sanitized-config';
 
-const displaySection = (externalProjects) => {
+const displaySection = (scratchProjects: ScratchProjectInterface) => {
   if (
-    externalProjects &&
-    Array.isArray(externalProjects) &&
-    externalProjects.length
+    scratchProjects &&
+    Array.isArray(scratchProjects) &&
+    scratchProjects.length
   ) {
     return true;
   } else {
@@ -14,7 +16,15 @@ const displaySection = (externalProjects) => {
   }
 };
 
-const ExternalProject = ({ scratchProjects, loading, scratchConfig }) => {
+const ExternalProject = ({
+  scratchProjects,
+  loading,
+  scratchConfig,
+}: {
+  scratchProjects: ScratchProjectInterface[];
+  loading: boolean;
+  scratchConfig: SanitizedScratch;
+}) => {
   const renderSkeleton = () => {
     const array = [];
     for (let index = 0; index < scratchConfig.limit; index++) {
