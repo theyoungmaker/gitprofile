@@ -4,7 +4,7 @@ import LazyImage from '../lazy-image';
 import ScratchProjectInterface from '../../interfaces/scratch-project';
 import { SanitizedScratch } from '../../interfaces/sanitized-config';
 
-const displaySection = (scratchProjects: ScratchProjectInterface) => {
+const displaySection = (scratchProjects: ScratchProjectInterface[]) => {
   if (
     scratchProjects &&
     Array.isArray(scratchProjects) &&
@@ -102,8 +102,8 @@ const ExternalProject = ({
                           src={item.image}
                           alt={'thumbnail'}
                           placeholder={skeleton({
-                            width: 'w-full',
-                            height: 'h-full',
+                            widthCls: 'w-full',
+                            heightCls: 'h-full',
                             shape: '',
                           })}
                         />
