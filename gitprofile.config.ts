@@ -8,7 +8,7 @@ const CONFIG = {
     corsProxy: 'https://scratchapicors-8nbi5t6td-theyoungmaker.vercel.app/', //TODO: Enter your CORS Proxy here
   },
   github: {
-    username: 'theyoungmaker', // Your GitHub org/user name. (This is the only required config)
+    username: 'rickyqh', // Your GitHub org/user name. (This is the only required config)
   },
   /**
    * If you are deploying to https://<USERNAME>.github.io/, for example your repository is at https://github.com/arifszn/arifszn.github.io, set base to '/'.
@@ -38,22 +38,6 @@ const CONFIG = {
       header: 'My Projects',
       // To hide the `External Projects` section, keep it empty.
       projects: [
-        {
-          title: 'Microbit Flappy Bird',
-          description:
-            'This project presents a Flappy Bird-inspired game designed for the Micro:bit v2 platform. It is constructed using for loops, conditional statements, functions, and lists to create an entertaining and interactive gaming experience.',
-          imageUrl:
-            'https://upload.wikimedia.org/wikipedia/en/0/0a/Flappy_Bird_icon.png',
-          link: 'https://makecode.microbit.org/_8hTHCD4ax7ty',
-        },
-        {
-          title: 'Microbit Space Invaders',
-          description:
-            "This project features a traditional Space Invaders game developed for the Microbit v2 platform. It utilizes while loops, conditional statements, variables, and the Microbit's native game coordinate system to deliver an engaging gaming experience.",
-          imageUrl:
-            'https://www.svg.com/img/gallery/the-original-idea-behind-space-invaders-that-could-have-changed-gaming-forever/l-intro-1608754172.jpg',
-          link: 'https://makecode.microbit.org/_UXqLuYJfJRL6',
-        },
       ],
     },
   },
@@ -67,7 +51,7 @@ const CONFIG = {
     facebook: '',
     instagram: '',
     tiktok: '',
-    email: '',
+    email: 'ricky.yang.qh@gmail.com',
     website: '',
     twitter: '',
     mastodon: '',
@@ -90,55 +74,43 @@ const CONFIG = {
   },
   skills: [
     'Scratch',
-    'Microbit',
-    'JavaScript',
     'Design Thinking',
     'Python',
     'Git',
-    'CSS',
-    'MakeCode',
-    'ScratchJr',
-    'Hopscotch',
-    'Robotics',
-    'Typescript',
+    'MINDSTORMS EV3',
   ],
   experiences: [
-    {
-      company: 'Company Name',
-      position: 'Position',
-      from: 'September 2021',
-      to: 'Present',
-      companyLink: 'https://example.com',
-    },
-    {
-      company: 'Company Name',
-      position: 'Position',
-      from: 'July 2019',
-      to: 'August 2021',
-      companyLink: 'https://example.com',
-    },
   ],
   certifications: [
     {
-      name: 'Lorem ipsum',
-      body: 'Lorem ipsum dolor sit amet',
-      year: 'March 2022',
+      name: 'Introduction to Python with The Young Maker',
+      body: 'Learning python basics with The Young Maker',
+      year: 'Nov 2024',
       link: 'https://example.com',
+    }
+  ],
+  education: [
+    {
+      institution: 'The Young Maker',
+      degree: 'Certification',
+      from: '2024',
+      to: '2024',
     },
+    {
+      institution: 'BYJU',
+      degree: 'Certification',
+      from: '2022',
+      to: '2023',
+    }
   ],
   educations: [
     {
-      institution: 'Institution Name',
-      degree: 'Degree',
-      from: '2015',
-      to: '2019',
+      institution: 'Holy Innocents Primary School',
+      degree: 'Certification',
+      from: '2020',
+      to: '2025',
     },
-    {
-      institution: 'Institution Name',
-      degree: 'Degree',
-      from: '2012',
-      to: '2014',
-    },
+
   ],
   publications: [],
   // Display articles from your medium or dev account. (Optional)
@@ -156,7 +128,7 @@ const CONFIG = {
     snippetVersion: 6,
   },
   themeConfig: {
-    defaultTheme: 'lofi',
+    defaultTheme: 'bumblebee',
 
     // Hides the switch in the navbar
     // Useful if you want to support a single color mode
